@@ -1,0 +1,128 @@
+Projektidee: Kalorienzähler (Konsole)
+Grundstruktur:
+
+                                                            Produkte verwalten
+
+Ein Produkt besteht aus:
+
+Name
+Kalorien (pro 100g)
+Eiweiß (pro 100g)
+Fett (pro 100g)
+Kohlenhydrate (pro 100g)
+
+Beispiel:
+Magerquark
+100 kcal
+12g Eiweiß
+0,2g Fett
+4g Kohlenhydrate
+
+Produkte werden einmal angelegt und bleiben in der Produktliste.
+
+                                                             Mahlzeit erstellen
+
+Eine Mahlzeit besteht aus:
+mehreren Produkten
+jeweils mit individueller Grammzahl
+
+Beispiel:
+Frühstück:
+50g Magerquark
+100g Banane
+20g Nüsse
+
+Das Programm rechnet automatisch:
+
+Wert = (Produktwert / 100) × Gramm
+Also alles skaliert auf die tatsächliche Menge.
+
+                                                             Tagesübersicht
+
+Der Tag speichert:
+
+alle Mahlzeiten
+daraus berechnet:
+Gesamtkalorien:
+Gesamt-Eiweiß:
+Gesamt-Fett:
+Gesamt-Kohlenhydrate
+
+                                                              Menüstruktur:
+
+Beim Start kommt ein Menü:
+1.Produkt hinzufügen
+2.Produktliste anzeigen
+3.Mahlzeit erstellen
+4.Tageswerte anzeigen
+5.Programm beenden
+
+                                                            Technische Bausteine
+
+1.Variablen
+2.Listen
+3.Dictionaries
+4.Funktionen
+5.Schleifen (for / while)
+6.Bedingungen (if / else)
+7.Fehlerbehandlung (try / except)
+8.Typumwandlung (int / float)
+9.Eingabevalidierung
+10.Rechenoperationen
+11.Menüstruktur
+12.Benutzer-Input (input)
+13.Ausgabe (print)
+14.Strukturdenken / Datenmodell
+ Perfekt. Hier ist deine angepasste To-Do-Liste, kompakt und sauber nummeriert (Start bei 1, insgesamt 8 Punkte):
+
+---
+ To-Do – Kalorienzähler 
+
+1. **Menü-Gerüst bauen**
+
+   * Endlosschleife
+   * Auswahlmöglichkeiten (1–5)
+   * „Beenden“ funktioniert
+
+2. **Datenstrukturen anlegen**
+
+   * Produkte (Dictionary)
+   * Mahlzeiten (Liste)
+   * optional Tages_summe (Dictionary)
+
+3. **Produkt hinzufügen**
+
+   * Name + 4 Werte (pro 100g)
+   * im Dictionary speichern
+
+4. **Produktliste anzeigen**
+
+   * Alle gespeicherten Produkte ausgeben
+
+5. **Mahlzeit erstellen**
+
+   * Produkt auswählen
+   * Gramm eingeben
+   * Werte berechnen
+   * Mahlzeit speichern
+
+6. **Mahlzeiten anzeigen**
+
+   * Mahlzeit 1, 2, 3 …
+   * jeweilige Summen anzeigen
+
+7. **Tageswerte berechnen & anzeigen**
+
+   * Gesamtkalorien
+   * Gesamt-Eiweiß
+   * Gesamt-Fett
+   * Gesamt-Kohlenhydrate
+
+8. **Fehlerbehandlung einbauen**
+
+   * try/except bei Eingaben
+   * keine negativen Werte
+   * Produkt muss existieren
+
+
+
