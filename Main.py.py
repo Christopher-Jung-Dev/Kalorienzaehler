@@ -1,33 +1,27 @@
+# Fragt eine Zahl vom Nutzer ab (mit Komma oder Punkt möglich)
+# und wiederholt die Eingabe, bis eine gültige Zahl eingegeben wurde.
+def zahl_eingeben(text):
+    while True:
+        try:
+            return float(input(text).replace(",", "."))
+        except ValueError:
+            print("Bitte eine gültige Zahl eingeben.")
+
+
+
+
+# Liest ein neues Produkt ein und speichert es in der Produktliste.
 def produkt_hinzufuegen():
-    name = input("Produkt Name: ")
+    name = input("Produkt Name: ").strip()
 
-    while True:
-        try:
-            kalorien = float(input("Kalorien auf 100g: ").replace(",", "."))
-            break
-        except ValueError:
-            print("Bitte eine gültige Zahl eingeben.")
+    kalorien = zahl_eingeben("Kalorien auf 100g: ")
 
-    while True:
-        try:
-            eiweiss = float(input("Eiweiß auf 100g: ").replace(",", "."))
-            break
-        except ValueError:
-            print("Bitte eine gültige Zahl eingeben.")
+    eiweiss = zahl_eingeben("Eiweiß auf 100g: ")
 
-    while True:
-        try:
-            fett = float(input("Fett auf 100g: ").replace(",", "."))
-            break
-        except ValueError:
-            print("Bitte eine gültige Zahl eingeben.")
+    fett = zahl_eingeben("Fett auf 100g: ")
 
-    while True:
-        try:
-            kohlenhydrate = float(input("Kohlenhydrate auf 100g: ").replace(",", "."))
-            break
-        except ValueError:
-            print("Bitte eine gültige Zahl eingeben.")
+    kohlenhydrate = zahl_eingeben("Kohlenhydrate auf 100g: ")
+
 
     produkt = {
         "Name": name,
@@ -40,7 +34,15 @@ def produkt_hinzufuegen():
     produkte.append(produkt)
     print("Produkt gespeichert.")
 
+# Sucht ein Produkt anhand des Namens in der Produktliste
+# und gibt das Produkt zurück, falls es gefunden wird, sonst None.
+def produkt_finden(name):
+    for produkt in produkte:
+        if produkt["Name"] == name:
+            return produkt
+    return None
 
+# Mahlzeit wird eingegeben, gespeichert und zur Liste mahlzeiten hinzugefückt.
 def mahlzeit_hinzufuegen():
     mahlzeit_typ = ""
 
@@ -78,22 +80,11 @@ def mahlzeit_hinzufuegen():
             if auswahl_produkt == "1":
                 user_input_name = input("Produkt Name: ").strip()
 
-                produkt_gefunden = False
-                gespeichertes_produkt = None
+                gespeichertes_produkt = produkt_finden(user_input_name)
 
-                for produkt in produkte:
-                    if produkt["Name"] == user_input_name:
-                        produkt_gefunden = True
-                        gespeichertes_produkt = produkt
-                        break
-
-                if produkt_gefunden:
-                    while True:
-                        try:
-                            gramm = float(input("Gramm: ").replace(",", "."))
-                            break
-                        except ValueError:
-                            print("Bitte eine gültige Zahl eingeben.")
+                if gespeichertes_produkt:
+                    
+                    gramm = zahl_eingeben("Gramm: ")
 
                     mahlzeit_produkt = {
                         "Name": gespeichertes_produkt["Name"],
@@ -119,7 +110,7 @@ def mahlzeit_hinzufuegen():
             mahlzeiten.append(mahlzeit)
             print("Mahlzeit gespeichert.")
 
-
+# zeigt alle gespeicherten Produkte mit Nährwerten.
 def produktliste_anzeigen():
     if not produkte:
         print("Keine Produkte gespeichert.")
@@ -134,7 +125,7 @@ def produktliste_anzeigen():
                 "| Kohlenhydrate:", produkt["Kohlenhydrate"]
             )
 
-
+# Zeigt alle gespeicherten Mahlzeiten mit den enthaltenen Produkten und Grammangaben.
 def mahlzeitenliste_anzeigen():
     if not mahlzeiten:
         print("Keine Mahlzeiten gespeichert.")
@@ -148,7 +139,7 @@ def mahlzeitenliste_anzeigen():
                     "| Gramm:", produkt["Gramm"]
                 )
 
-
+# berechnet Tageswerte aus allen gespeicherten Mahlzeiten
 def tageswerte_anzeigen():
     gesamt_kalorien = 0
     gesamt_eiweiss = 0
@@ -176,6 +167,7 @@ def tageswerte_anzeigen():
     for name, wert in tageswerte.items():
         print(f"{name}: {wert:.2f}")
 
+# zeigt die verschiedenen Auswahlmöglichkeiten an.
 def menue_anzeigen():
     print("\n1) Produkt hinzufügen")
     print("2) Mahlzeit hinzufügen")
@@ -184,7 +176,10 @@ def menue_anzeigen():
     print("5) Tageswerte anzeigen")
     print("6) Beenden")
 
+# Speichert alle angelegten Produkte
 produkte = []
+
+# Speichert alle eingegebenen Mahlzeiten
 mahlzeiten = []
 
 while True:
