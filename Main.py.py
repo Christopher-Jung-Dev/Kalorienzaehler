@@ -1,3 +1,18 @@
+# Daten dauerhaft Speichern.
+import json
+def produkte_speichern():
+    with open("produkte.json", "w") as datei:
+       json.dump(produkte, datei)
+
+# Daten Laden.
+def produkte_laden():
+    global produkte
+    try:
+        with open("produkte.json", "r") as datei:
+            produkte = json.load(datei)
+    except:
+        produkte = []   
+
 # Fragt eine Zahl vom Nutzer ab (mit Komma oder Punkt möglich)
 # und wiederholt die Eingabe, bis eine gültige Zahl eingegeben wurde.
 def zahl_eingeben(text):
@@ -33,6 +48,8 @@ def produkt_hinzufuegen():
 
     produkte.append(produkt)
     print("Produkt gespeichert.")
+    produkte_speichern()
+    
 
 # Sucht ein Produkt anhand des Namens in der Produktliste
 # und gibt das Produkt zurück, falls es gefunden wird, sonst None.
@@ -181,6 +198,9 @@ produkte = []
 
 # Speichert alle eingegebenen Mahlzeiten
 mahlzeiten = []
+
+# Dateien Laden
+produkte_laden()
 
 while True:
     menue_anzeigen()
