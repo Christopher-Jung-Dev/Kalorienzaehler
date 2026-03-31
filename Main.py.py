@@ -1,10 +1,10 @@
-# Daten dauerhaft Speichern.
+# Produkt Daten dauerhaft Speichern.
 import json
 def produkte_speichern():
     with open("produkte.json", "w") as datei:
        json.dump(produkte, datei)
 
-# Daten Laden.
+# Produkt Daten Laden.
 def produkte_laden():
     global produkte
     try:
@@ -58,6 +58,20 @@ def produkt_finden(name):
         if produkt["Name"] == name:
             return produkt
     return None
+
+# Mahlzeiten Daten dauerhaft Speichern.
+def mahlzeiten_speichern():
+    with open("mahlzeiten.json", "w") as datei:
+        json.dump(mahlzeiten, datei)
+
+# Mahlzeiten Daten Laden.
+def mahlzeiten_laden():
+    global mahlzeiten
+    try:
+        with open("mahlzeiten.json", "r") as datei:
+            mahlzeiten = json.load(datei)
+    except:
+        mahlzeiten = []  
 
 # Mahlzeit wird eingegeben, gespeichert und zur Liste mahlzeiten hinzugefückt.
 def mahlzeit_hinzufuegen():
@@ -126,6 +140,7 @@ def mahlzeit_hinzufuegen():
             }
             mahlzeiten.append(mahlzeit)
             print("Mahlzeit gespeichert.")
+            mahlzeiten_speichern()
 
 # zeigt alle gespeicherten Produkte mit Nährwerten.
 def produktliste_anzeigen():
@@ -199,8 +214,11 @@ produkte = []
 # Speichert alle eingegebenen Mahlzeiten
 mahlzeiten = []
 
-# Dateien Laden
+# Produkt Dateien Laden
 produkte_laden()
+
+# Mahlzeit Dateien Laden
+mahlzeiten_laden()
 
 while True:
     menue_anzeigen()
