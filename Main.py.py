@@ -55,7 +55,7 @@ def produkt_hinzufuegen():
 # und gibt das Produkt zurück, falls es gefunden wird, sonst None.
 def produkt_finden(name):
     for produkt in produkte:
-        if produkt["Name"] == name:
+        if produkt["Name"].lower().strip() == name.lower().strip():
             return produkt
     return None
 
@@ -75,6 +75,7 @@ def mahlzeiten_laden():
 
 # Mahlzeit wird eingegeben, gespeichert und zur Liste mahlzeiten hinzugefückt.
 def mahlzeit_hinzufuegen():
+    datum = input("Datum (TT.MM.JJJJ): ").strip()
     mahlzeit_typ = ""
 
     while True:
@@ -114,7 +115,6 @@ def mahlzeit_hinzufuegen():
                 gespeichertes_produkt = produkt_finden(user_input_name)
 
                 if gespeichertes_produkt:
-                    
                     gramm = zahl_eingeben("Gramm: ")
 
                     mahlzeit_produkt = {
@@ -135,6 +135,7 @@ def mahlzeit_hinzufuegen():
 
         if produkte_der_mahlzeit:
             mahlzeit = {
+                "Datum": datum,
                 "Typ": mahlzeit_typ,
                 "Produkte": produkte_der_mahlzeit
             }
@@ -164,7 +165,8 @@ def mahlzeitenliste_anzeigen():
     else:
         print("\nMahlzeitenliste:")
         for mahlzeit in mahlzeiten:
-            print(mahlzeit["Typ"])
+            datum = mahlzeit.get("Datum", "Kein Datum")
+            print("Datum:", datum, "| Typ:", mahlzeit["Typ"])
             for produkt in mahlzeit["Produkte"]:
                 print(
                     "  Produkt:", produkt["Name"],
