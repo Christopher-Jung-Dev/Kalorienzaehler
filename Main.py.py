@@ -158,20 +158,35 @@ def produktliste_anzeigen():
                 "| Kohlenhydrate:", produkt["Kohlenhydrate"]
             )
 
+
+
 # Zeigt alle gespeicherten Mahlzeiten mit den enthaltenen Produkten und Grammangaben.
 def mahlzeitenliste_anzeigen():
     if not mahlzeiten:
         print("Keine Mahlzeiten gespeichert.")
     else:
         print("\nMahlzeitenliste:")
+
+        nach_Datum = {}
+
         for mahlzeit in mahlzeiten:
             datum = mahlzeit.get("Datum", "Kein Datum")
-            print("Datum:", datum, "| Typ:", mahlzeit["Typ"])
-            for produkt in mahlzeit["Produkte"]:
-                print(
-                    "  Produkt:", produkt["Name"],
-                    "| Gramm:", produkt["Gramm"]
-                )
+
+            if datum not in nach_Datum:
+                nach_Datum[datum] = []
+
+            nach_Datum[datum].append(mahlzeit)
+        
+        for datum, mahlzeiten_liste in nach_Datum.items():#
+            print(datum)
+
+            for mahlzeit in mahlzeiten_liste:
+                print(" ", mahlzeit["Typ"])
+
+                for produkt in mahlzeit["Produkte"]:
+                    print("   Produkt:", produkt["Name"], "| Gramm:", produkt["Gramm"])
+                
+            print()
 
 # berechnet Tageswerte aus allen gespeicherten Mahlzeiten
 def tageswerte_anzeigen():
