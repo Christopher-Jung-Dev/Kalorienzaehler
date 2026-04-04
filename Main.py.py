@@ -188,6 +188,37 @@ def mahlzeitenliste_anzeigen():
                 
             print()
 
+# berechnet Tageswert nach datum:
+def tageswerte_fuer_datum():
+    datum = input("Datum eingeben (TT.MM.JJJJ): ").strip()
+
+    gesamt_kalorien = 0
+    gesamt_eiweiss = 0
+    gesamt_fett = 0
+    gesamt_kohlenhydrate = 0
+
+    for mahlzeit in mahlzeiten:
+        if mahlzeit.get("Datum", "Kein Datum") == datum:
+            for produkt in mahlzeit["Produkte"]:
+                for gespeichertes_produkt in produkte:
+                    if gespeichertes_produkt["Name"] == produkt["Name"]:
+                        faktor = produkt["Gramm"] / 100
+                        gesamt_kalorien += gespeichertes_produkt["Kalorien"] * faktor
+                        gesamt_eiweiss += gespeichertes_produkt["Eiweiß"] * faktor
+                        gesamt_fett += gespeichertes_produkt["Fett"] * faktor
+                        gesamt_kohlenhydrate += gespeichertes_produkt["Kohlenhydrate"] * faktor
+    tageswerte = {
+        "Kalorien": gesamt_kalorien,
+        "Eiweiß": gesamt_eiweiss,
+        "Fett": gesamt_fett,
+        "Kohlenhydrate": gesamt_kohlenhydrate
+    }
+
+    print(f"\nTageswerte für {datum}:")
+    for name, wert in tageswerte.items():
+        print(f"{name}: {wert:.2f}")
+
+
 # berechnet Tageswerte aus allen gespeicherten Mahlzeiten
 def tageswerte_anzeigen():
     gesamt_kalorien = 0
@@ -223,7 +254,8 @@ def menue_anzeigen():
     print("3) Produktliste anzeigen")
     print("4) Mahlzeitenliste anzeigen")
     print("5) Tageswerte anzeigen")
-    print("6) Beenden")
+    print("6) Tageswerte nach Datum anzeigen")
+    print("7) Beenden")
 
 # Speichert alle angelegten Produkte
 produkte = []
@@ -240,7 +272,7 @@ mahlzeiten_laden()
 while True:
     menue_anzeigen()
 
-    auswahl = input("Bitte wähle eine Option (1-6): ").strip()
+    auswahl = input("Bitte wähle eine Option (1-7): ").strip()
 
     if auswahl == "1":
         produkt_hinzufuegen()
@@ -256,8 +288,11 @@ while True:
 
     elif auswahl == "5":
         tageswerte_anzeigen()
-
+    
     elif auswahl == "6":
+        tageswerte_fuer_datum()
+
+    elif auswahl == "7":
         print("Programm beendet.")
         break
 
